@@ -2,7 +2,7 @@ FROM node:20-alpine
 
 # Install required dependencies
 RUN apk update && \
-    apk add --no-cache git yarn libc6-compat flatbuffers rust cargo cmake make gcc g++ protobuf llvm clang libstdc++ libexecinfo
+    apk add --no-cache git yarn libc6-compat flatbuffers rust cargo cmake make gcc g++ protobuf llvm clang libstdc++
 
 # Set LIBCLANG_PATH to help bindgen find libclang
 ENV LIBCLANG_PATH=/usr/lib/llvm12/lib
