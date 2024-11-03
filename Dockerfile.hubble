@@ -6,7 +6,8 @@ RUN apk update && \
     apk add --no-cache yarn && \
     apk add --no-cache libc6-compat && \
     apk add --no-cache flatbuffers && \
-    apk add --no-cache rust cargo
+    apk add --no-cache rust cargo && \
+    apk add --no-cache cmake make gcc g++
 
 # Clone the Hubble repository and install dependencies
 RUN git clone https://github.com/farcasterxyz/hubble.git && \
