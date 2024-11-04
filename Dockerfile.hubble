@@ -8,5 +8,9 @@ ENV HUB_OPERATOR_FID=${HUB_OPERATOR_FID}
 # Create the identity
 RUN yarn identity create
 
+# Expose the required ports
+EXPOSE 2282
+EXPOSE 2283
+
 # Start Hubble
 CMD yarn start --eth-mainnet-rpc-url ${ETH_MAINNET_RPC_URL} --l2-rpc-url ${L2_RPC_URL} --hub-operator-fid ${HUB_OPERATOR_FID}
