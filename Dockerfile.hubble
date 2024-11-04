@@ -1,7 +1,12 @@
 FROM farcasterxyz/hubble:latest
 
-# Change to the Hubble app directory and create the network identity
-WORKDIR /hubble/apps/hubble
+# Set ENV
+ENV ETH_MAINNET_RPC_URL=${ETH_MAINNET_RPC_URL}
+ENV L2_RPC_URL=${L2_RPC_URL}
+ENV HUB_OPERATOR_FID=${HUB_OPERATOR_FID}
+
+# Create the identity
 RUN yarn identity create
 
-CMD yarn start --eth-mainnet-rpc-url https://mainnet.infura.io/v3/b01863d44f1341cb9c334ee64c2d3379 --l2-rpc-url https://optimism-mainnet.infura.io/v3/b01863d44f1341cb9c334ee64c2d3379 --hub-operator-fid 11500
+# Start Hubble
+CMD yarn start --eth-mainnet-rpc-url ${ETH_MAINNET_RPC_URL} --l2-rpc-url ${L2_RPC_URL} --hub-operator-fid ${HUB_OPERATOR_FID}
