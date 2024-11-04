@@ -2,13 +2,13 @@ FROM node:20-alpine
 
 # Install required dependencies
 RUN apk update && \
-    apk add --no-cache git yarn libc6-compat flatbuffers rust cargo cmake make gcc g++ protobuf llvm clang libstdc++ libexecinfo
-
-# Set LIBCLANG_PATH to help bindgen find libclang
-ENV LIBCLANG_PATH=/usr/lib/llvm15/lib
-
-# Ensure the libclang shared library is linked properly
-RUN ln -s /usr/lib/llvm15/lib/libclang.so /usr/lib/libclang.so
+    apk add --no-cache git && \
+    apk add --no-cache yarn && \
+    apk add --no-cache libc6-compat && \
+    apk add --no-cache flatbuffers && \
+    apk add --no-cache rust cargo && \
+    apk add --no-cache cmake make gcc g++ protobuf && \
+    apk add --no-cache llvm clang libstdc++
 
 # Clone the Hubble repository and install dependencies
 RUN git clone https://github.com/farcasterxyz/hubble.git && \
@@ -23,5 +23,4 @@ RUN yarn run build
 WORKDIR /hubble/apps/hubble
 RUN yarn identity create
 
-# Start the Hubble app with the required parameters
 CMD yarn start --eth-mainnet-rpc-url https://mainnet.infura.io/v3/b01863d44f1341cb9c334ee64c2d3379 --l2-rpc-url https://optimism-mainnet.infura.io/v3/b01863d44f1341cb9c334ee64c2d3379 --hub-operator-fid 11500
