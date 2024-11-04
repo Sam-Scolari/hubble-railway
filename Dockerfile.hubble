@@ -2,10 +2,13 @@ FROM node:20-alpine
 
 # Install required dependencies
 RUN apk update && \
-    apk add --no-cache git yarn libc6-compat flatbuffers rust cargo cmake make gcc g++ protobuf llvm clang libstdc++
+    apk add --no-cache git yarn libc6-compat flatbuffers rust cargo cmake make gcc g++ protobuf llvm clang libstdc++ libexecinfo
 
 # Set LIBCLANG_PATH to help bindgen find libclang
-ENV LIBCLANG_PATH=/usr/lib/llvm12/lib
+ENV LIBCLANG_PATH=/usr/lib/llvm15/lib
+
+# Ensure the libclang shared library is linked properly
+RUN ln -s /usr/lib/llvm15/lib/libclang.so /usr/lib/libclang.so
 
 # Clone the Hubble repository and install dependencies
 RUN git clone https://github.com/farcasterxyz/hubble.git && \
